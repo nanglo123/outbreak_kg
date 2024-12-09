@@ -1,7 +1,7 @@
 import os
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
-from client import Neo4jClient
+from kg.client import Neo4jClient
 
 import neo4j
 
