@@ -263,6 +263,8 @@ def do_cypher_tx(tx: Transaction, query: str, **query_params) -> List[List]:
     return [record.values() for record in result]
 
 
+from functools import lru_cache
+@lru_cache(maxsize=1)
 def create_custom_grounder():
     """Returns a custom grounder for MeSH and geonames terms"""
     from gilda.generate_terms import generate_mesh_terms
@@ -307,8 +309,7 @@ def create_custom_grounder():
 
 custom_grounder = create_custom_grounder()
 
-from functools import lru_cache
-@lru_cache(maxsize=1)
+
 def get_curie(name):
     """Return a MeSH or geonames CURIE based on a text name."""
     matches = custom_grounder.ground(name, namespaces=["MESH", "geonames"])
